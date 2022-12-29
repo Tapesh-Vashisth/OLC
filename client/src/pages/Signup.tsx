@@ -41,7 +41,7 @@ const Signup = () => {
             setName("");
             setEmail("");
             setPwd("");
-            navigate("/welcome");
+            navigate("/");
         } catch (err: any) {
             if (!err){
                 setErrmsg("no server response");

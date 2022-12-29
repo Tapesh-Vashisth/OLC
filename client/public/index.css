@@ -18,3 +18,13 @@
     width: 80px;
     height: 80px
 }
+
+.description {
+    padding: 5px;  
+}
+
+.proImage {
+    width: 175px;
+    height: 175px;
+    border-radius: 100%;
+}

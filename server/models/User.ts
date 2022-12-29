@@ -7,12 +7,17 @@ const userSchema = new Schema({
         required: true
     },
     description: {
-        type: String
+        type: String,
+        default: ""
     },
     email: {
         type: String,
         required: true,
         unique: true
+    },
+    phoneNumber: {
+        type: String,
+        default: ""
     },
     password: {
         type: String,
@@ -21,6 +26,16 @@ const userSchema = new Schema({
     projects: {
         type: [String],
         default: []
+    },
+    profileImage: {
+        type: {
+            imageName:{type:String,required:true},
+            image:{
+                    data:Buffer,
+                    contentType:String
+                }
+        },
+        default: null
     },
     refreshToken: String
 })

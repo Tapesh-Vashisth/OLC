@@ -18,6 +18,6 @@ const userDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const user = yield User_1.default.findOne({ email: req.email });
     if (!user)
         return res.sendStatus(404);
-    res.status(200).json({ name: user.name, email: user.email });
+    res.status(200).json({ name: user.name, email: user.email, profileImage: user.profileImage ? user.profileImage : null, description: user.description, phoneNumber: user.phoneNumber });
 });
 exports.default = userDetails;

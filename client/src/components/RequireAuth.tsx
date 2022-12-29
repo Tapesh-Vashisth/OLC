@@ -7,10 +7,10 @@ import LazyLoading from "./LazyLoading";
 const RequireAuth = () => {
     const token = useAppSelector(selectCurrentToken);
     const location = useLocation();
-
+    
     let user: any;
     user = useGetUserDetailsQuery();    
-
+    
     return (
         token ?
             <Outlet />

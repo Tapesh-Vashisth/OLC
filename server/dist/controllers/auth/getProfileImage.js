@@ -13,21 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_1 = __importDefault(require("../../models/User"));
-const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const cookies = req.cookies;
-    if (!(cookies === null || cookies === void 0 ? void 0 : cookies.jwt))
-        return res.sendStatus(204);
-    const refreshToken = cookies === null || cookies === void 0 ? void 0 : cookies.jwt;
-    // is refreshToken in db 
-    const foundUser = yield User_1.default.findOne({ refreshToken });
-    if (!foundUser) {
-        res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
-        res.sendStatus(204);
-    }
-    // delete refreshToken in the database 
-    foundUser.refreshToken = "";
-    yield foundUser.save();
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
-    res.sendStatus(204);
+const getProfileImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("getProfile");
+    const user = yield User_1.default.findOne({ email: req.email });
+    if (!user)
+        return res.sendStatus(404);
+    res.status(200).json(user.profileImage);
 });
-exports.default = logout;
+exports.default = getProfileImage;

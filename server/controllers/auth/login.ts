@@ -32,7 +32,7 @@ const login = async (req: any, res: Response) => {
         await foundUser.save()
         
         res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "strict", secure: true, maxAge: 24 * 60 * 60 * 1000})
-        res.json({accessToken, email, name: foundUser.name});
+        res.json({accessToken, name: foundUser.name, email: foundUser.email, profileImage: foundUser.profileImage ? foundUser.profileImage : null, description: foundUser.description, phoneNumber: foundUser.phoneNumber});
     }else{
         res.sendStatus(401)
     }
