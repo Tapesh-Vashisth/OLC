@@ -28,6 +28,10 @@ const productSchema = new Schema({
         type: Boolean,
         default: false
     },
+    images: {
+        type: [String],
+        default: []
+    },
     description: {
         type: String
     },
@@ -35,6 +39,10 @@ const productSchema = new Schema({
         type: String
     },
     location: {
+        type: String,
+        required: true
+    },
+    state: {
         type: String,
         required: true
     }

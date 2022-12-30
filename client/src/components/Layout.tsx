@@ -7,7 +7,7 @@ const Layout = () => {
   return (
     <Stack sx = {{minHeight: "100vh"}} rowGap = "40px" justifyContent = "space-between">
       <Navbar />
-      <section style = {{flexGrow: 1, margin: "5px 0px"}}>
+      <section style = {{flexGrow: 1}}>
         <Outlet />
       </section>
       <Footer />

@@ -19,6 +19,10 @@
     height: 80px
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .description {
     padding: 5px;  
 }
@@ -27,4 +31,8 @@
     width: 175px;
     height: 175px;
     border-radius: 100%;
+}
+
+.category:hover {
+    background-color: grey;
 }

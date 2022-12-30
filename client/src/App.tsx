@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Error404 from "./pages/Error404";
 import RequireAuth from './components/RequireAuth';
 import ViewProfile from "./pages/ViewProfile";
+import SellCategory from "./pages/SellCategory";
 import EditProfile from "./pages/EditProfile";
 import Sell from "./pages/Sell";
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="viewProfile" element = {<ViewProfile />} />
           <Route path="editProfile" element = {<EditProfile />} />
           <Route path="sell" element = {<Sell />} />
+          <Route path="sell/:category" element = {<SellCategory />} />
         </Route>
       </Route>
 
