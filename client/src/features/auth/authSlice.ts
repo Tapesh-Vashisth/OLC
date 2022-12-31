@@ -1,21 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialState{
+    userId: string
     name: string
     email: string
     token: string
     description: string
-    profileImage: any
+    profileImage: string
     phoneNumber: string
+    products: string []
+    bought: string []
 }
 
 const initialState: initialState = {
+    userId: "",
     name: "",
     email: "",
     token: "",
-    profileImage: null,
+    profileImage: "",
     description: "",
-    phoneNumber: ""
+    phoneNumber: "",
+    products: [],
+    bought: []
 }
 
 const authSlice = createSlice({
@@ -32,24 +38,30 @@ const authSlice = createSlice({
             state.description = description;
         },
         setCredentials: (state, action) => {
-            const {name, email, accessToken, profileImage, description, phoneNumber} = action.payload;
+            const {userId, name, email, accessToken, profileImage, description, phoneNumber, bought, products} = action.payload;
+            state.userId = userId;
             state.name = name;
             state.email = email;
             state.token = accessToken;
             state.profileImage = profileImage;
             state.description = description;
             state.phoneNumber = phoneNumber;
+            state.bought = bought;
+            state.products = products;
         },
         setToken: (state, action) => {
             state.token = action.payload;
         },
         logOut: (state) => {
+            state.userId = "";
             state.name = "";
             state.email = "";
             state.token = "";
-            state.profileImage = null;
+            state.profileImage = "";
             state.description = "";
             state.phoneNumber = "";
+            state.products = [];
+            state.bought = [];
         }
     }
 })

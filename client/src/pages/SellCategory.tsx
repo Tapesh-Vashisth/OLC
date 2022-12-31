@@ -4,21 +4,38 @@ import {Stack, Typography, TextField, Button} from "@mui/material";
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import ConvertToBase64 from "../helper/ConvertToBase64";
 import DoneIcon from '@mui/icons-material/Done';
-
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAddProductMutation } from "../features/product/productApiSlice";
 
 const SellCategory = () => {
+    const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.auth);
     const {category} = useParams();
+    const [addProduct] = useAddProductMutation();
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
-    const [price, setPrice] = useState<number>(0);
+    const [price, setPrice] = useState<string>("");
     const [images, setImages] = useState<any []>([]);
+    const [location, setLocation] = useState<string>("");
     const [state, setState] = useState<string>("");
     const [imagesUploaded, setImagesUploaded] = useState<boolean []>([false, false, false, false]);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(title, description, price, images, state, imagesUploaded);
-        
+        console.log(title, description, price, images, location, state, imagesUploaded);
+        try {
+            const response = await addProduct({title, description, price, location, images, state, category, seller: user.userId}).unwrap();
+            setTitle("");
+            setDescription("");
+            setPrice("");
+            setImages([]);
+            setState("");
+            setLocation("");
+            setImagesUploaded([false, false, false, false]);
+            alert("success");
+        } catch (err: any) {
+            alert("something went wrong");
+        }
     }
 
     const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +47,11 @@ const SellCategory = () => {
     }
     
     const handleChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPrice(Number(e.target.value));
+        setPrice(e.target.value);
+    }
+
+    const handleChangeLocation = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLocation(e.target.value);
     }
 
     const handleChangeState = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -50,9 +71,6 @@ const SellCategory = () => {
         }
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    }
 
     return (
         <Stack direction = "column" alignItems="center" spacing = {2}>
@@ -72,16 +90,16 @@ const SellCategory = () => {
                     <Stack padding = "25px" spacing = {2} style={{borderBottom: "1px solid grey"}}>
                         <h3>Include Some Details</h3>
 
-                        <TextField id="filled-basic" required onChange={handleChangeTitle} label="Product Title" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
+                        <TextField id="filled-basic" required value = {title} onChange={handleChangeTitle} label="Product Title" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
 
-                        <TextField id="filled-basic" required onChange={handleChangeDesc} label="Description" multiline maxRows={5} rows = {5} variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
+                        <TextField id="filled-basic" required value = {description} onChange={handleChangeDesc} label="Description" multiline rows = {5} variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
                     </Stack>
 
                     {/* price */}
                     <Stack padding = "25px" spacing = {2} style={{borderBottom: "1px solid grey"}}>
                         <h3>Set A Price</h3>
 
-                        <TextField type="number" required onChange={handleChangePrice} id="filled-basic" label="&#8377;" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
+                        <TextField type="number" required value = {price} onChange={handleChangePrice} id="filled-basic" label="&#8377;" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
                     </Stack>
 
                     {/* photos */}
@@ -112,8 +130,8 @@ const SellCategory = () => {
                     {/* location */}
                     <Stack padding = "25px" spacing = {2} style={{borderBottom: "1px solid grey"}}>
                         <h3>Enter the Location</h3>
-                        <TextField type="text" id="filled-basic" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
-                        <select name="state" onChange={handleChangeState} id="state" className="form-control" required>
+                        <TextField type="text" value = {location} onChange = {handleChangeLocation} id="filled-basic" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
+                        <select name="state" value = {state} onChange={handleChangeState} id="state" className="form-control" required>
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>

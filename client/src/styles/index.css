@@ -5,6 +5,30 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
+/* Works on Firefox */
+* {
+scrollbar-width: thin;
+scrollbar-color: darkgray white;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 7px;
+}
+
+*::-webkit-scrollbar-track {    
+    background: white;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: darkgray;
+    border-radius: 20px;
+}
+
 .center { 
     text-align: center;
 }
@@ -35,4 +59,13 @@
 
 .category:hover {
     background-color: grey;
+}
+
+.product:hover {
+    scale: 0.9;
+}
+
+.carousel__dot {
+    width: 20px;
+    height: 10px;
 }

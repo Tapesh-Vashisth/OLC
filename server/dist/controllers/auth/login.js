@@ -21,6 +21,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     if (!email || !password)
         return res.status(400).json({ "message": "username and password are required!" });
+    console.log(email, password);
     const foundUser = yield User_1.default.findOne({ email }).exec();
     if (!foundUser)
         return res.sendStatus(401);
@@ -33,7 +34,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         foundUser.refreshToken = refreshToken;
         yield foundUser.save();
         res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "strict", secure: true, maxAge: 24 * 60 * 60 * 1000 });
-        res.json({ accessToken, name: foundUser.name, email: foundUser.email, profileImage: foundUser.profileImage ? foundUser.profileImage : null, description: foundUser.description, phoneNumber: foundUser.phoneNumber });
+        res.json({ userId: foundUser.userId, accessToken, products: foundUser.products, name: foundUser.name, bought: foundUser.bought, email: foundUser.email, profileImage: foundUser.profileImage ? foundUser.profileImage : null, description: foundUser.description, phoneNumber: foundUser.phoneNumber });
     }
     else {
         res.sendStatus(401);

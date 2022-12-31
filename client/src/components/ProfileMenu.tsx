@@ -23,22 +23,19 @@ const ProfileMenu = () => {
 
     return (
     <div className="dropup-center dropup">
-        <div className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <div className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <ProfileIcon />
         </div>
         <ul className="dropdown-menu dropdown-menu-dark">
             <li>
-                <p style = {{textAlign: "center"}} >hello,<br />{name}</p>
+                <p style = {{textAlign: "center"}}>hello,<br />{name}</p>
             </li>
             <li><hr className="dropdown-divider" /></li>
             <li>
                 <NavLink to = "/viewProfile" className="dropdown-item" style={{textDecoration: 'none', color: "white", background: "transparent"}}>view/edit profile</NavLink>
             </li>
             <li>
-                <NavLink to = "#" className="dropdown-item" style={{textDecoration: 'none', color: "white", background: "transparent"}}>My ADs</NavLink>
-            </li>
-            <li>
-                <NavLink to = "#" className="dropdown-item" style={{textDecoration: 'none', color: "white", background: "transparent"}}>Purchase History</NavLink>
+                <NavLink to = "/purchaseHistory" className="dropdown-item" style={{textDecoration: 'none', color: "white", background: "transparent"}}>Purchase History</NavLink>
             </li>
             <li>
                 <div onClick={handleLogout} className="dropdown-item" style={{textDecoration: 'none', color: "white", background: "transparent"}}>LogOut</div>

@@ -12,6 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MarkUnreadChatAltIcon from '@mui/icons-material/MarkUnreadChatAlt';
+import SearchBar from './SearchBar';
 import Button from '@mui/material/Button';
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from '../store/hooks';
@@ -37,7 +38,8 @@ export default function Navbar(props: Props) {
         setMobileOpen((prevState) => !prevState);
 	};
 
-    const navLogItems = [{name: <MarkUnreadChatAltIcon />, to: "/chat"}, {name: "Sell", to: "/sell"}];
+	// {name: <MarkUnreadChatAltIcon />, to: "/chat"},
+    const navLogItems = [{name: "Sell", to: "/sell"}];
     const navLoggedOutItems = [{name: 'Login', to: "/login"}, {name: "Sell", to: "/login"}];
     const navItems = token ? navLogItems : navLoggedOutItems;
 
@@ -68,7 +70,7 @@ export default function Navbar(props: Props) {
 	return (
 		<nav>
 			<AppBar component="nav" style={{ position: "static", backgroundColor: "rgba(0, 0, 0, 0.29)", boxShadow: "none" }}>
-				<Toolbar>
+				<Toolbar style = {{paddingRight: "0px"}}>
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"
@@ -78,6 +80,18 @@ export default function Navbar(props: Props) {
 					>
 						<MenuIcon />
 					</IconButton>
+	
+					<Typography
+						variant="h6"
+						component="div"
+						sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color: 'white', fontWeight: "bold" }}
+					>
+						<NavLink to = "/">
+                            <img src='/images/logo.png' style={{ width: "60px", height: "60px" }} />
+                        </NavLink>
+					</Typography>
+
+					<SearchBar />
 
 					{
 						token ? 
@@ -92,16 +106,7 @@ export default function Navbar(props: Props) {
 						</Typography> : null
 					}
 
-					<Typography
-						variant="h6"
-						component="div"
-						sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color: 'white', fontWeight: "bold" }}
-					>
-						<NavLink to = "/">
-                            <img src='/images/logo.png' style={{ width: "60px", height: "60px" }} />
-                        </NavLink>
-					</Typography>
-					<Box sx={{ display: { xs: 'none', sm: 'block' }, paddingRight: "10px"}}>
+					<Box sx={{ display: { xs: 'none', sm: 'block' }}}>
 						{navItems.map((item, i) => (
 							<NavLink to={item.to} key={i} style={{ textDecoration: "none" }}>
 								<Button sx={{ color: 'black', fontWeight: "bold" }}>

@@ -26,7 +26,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             query: formdata => ({
                 url: "/auth/user/updateProfileImage",
                 method: "POST",
-                body: formdata
+                body: {...formdata}
             })
         }),
         updateProfile: builder.mutation({

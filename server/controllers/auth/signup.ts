@@ -1,6 +1,7 @@
 import { Express, Response } from "express";
 import userModel from "../../models/User";
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require('uuid');
 const jwt = require("jsonwebtoken");
 
 const signup = async (req: any, res: Response) => {   
@@ -31,6 +32,7 @@ const signup = async (req: any, res: Response) => {
             
         // store the new user 
         const newUser = new userModel({
+            userId: uuidv4(),
             name,
             email,
             password: hashedpassword,
@@ -42,7 +44,7 @@ const signup = async (req: any, res: Response) => {
 
         
         res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000})
-        res.json({accessToken, email, name: name});
+        res.json({accessToken, email, name: name, userId: newUser.userId});
     } catch (err: any) {
         res.status(500).json({"message": err?.message});
     }

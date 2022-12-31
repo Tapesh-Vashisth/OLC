@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_1 = __importDefault(require("../../models/User"));
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require('uuid');
 const jwt = require("jsonwebtoken");
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password } = req.body;
@@ -31,6 +32,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "15s" });
         // store the new user 
         const newUser = new User_1.default({
+            userId: uuidv4(),
             name,
             email,
             password: hashedpassword,
@@ -39,7 +41,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         yield newUser.save();
         res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 });
-        res.json({ accessToken, email, name: name });
+        res.json({ accessToken, email, name: name, userId: newUser.userId });
     }
     catch (err) {
         res.status(500).json({ "message": err === null || err === void 0 ? void 0 : err.message });

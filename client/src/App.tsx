@@ -10,6 +10,8 @@ import ViewProfile from "./pages/ViewProfile";
 import SellCategory from "./pages/SellCategory";
 import EditProfile from "./pages/EditProfile";
 import Sell from "./pages/Sell";
+import PurchaseHistory from "./pages/PurchaseHistory";
+import ProductMain from "./pages/ProductMain";
 
 function App() {
   return (
@@ -21,14 +23,16 @@ function App() {
 
       <Route path='/' element = {<Layout />}>
         <Route index element = {<Home />} />
-    
+        <Route path="product/:productId" element = {<ProductMain />} />
         {/* protected routes  */}
         <Route path="/" element = {<RequireAuth />}>
+          <Route path="purchaseHistory" element = {<PurchaseHistory />} />
           <Route path="viewProfile" element = {<ViewProfile />} />
           <Route path="editProfile" element = {<EditProfile />} />
           <Route path="sell" element = {<Sell />} />
           <Route path="sell/:category" element = {<SellCategory />} />
         </Route>
+
       </Route>
 
       <Route path="*" element = {<Error404 />}></Route>

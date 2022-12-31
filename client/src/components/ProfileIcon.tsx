@@ -5,7 +5,7 @@ const ProfileIcon = () => {
     const user = useAppSelector((state) => state.auth);
     return (
         user.profileImage ? 
-        <img style = {{width: "40px", height: "40px", borderRadius: "100%"}} src={`data:${user.profileImage["image"]["contentType"]};base64,${btoa(String.fromCharCode(...new Uint8Array(user.profileImage["image"]["data"]["data"])))}`}  alt="" /> 
+        <img style = {{width: "40px", height: "40px", borderRadius: "100%"}} src={user.profileImage}  alt="" /> 
         : 
         <AccountBoxIcon />
     )

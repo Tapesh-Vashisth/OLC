@@ -13,33 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_1 = __importDefault(require("../../models/User"));
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
 const updateProfileImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("updateProfileImage");
-    console.log("what the hell");
-    const f = req.file;
     const email = req.email;
-    if (f) {
-        const user = yield User_1.default.findOne({ email });
-        if (!user)
-            return res.sendStatus(404);
-        const img = {
-            data: fs_1.default.readFileSync(path_1.default.join(__dirname + `/../../uploads/${f.filename}`)),
-            contentType: `${f.mimetype}`
-        };
-        user.profileImage = {
-            imageName: email,
-            image: img
-        };
-        yield user.save();
-        return res.status(200).json({
-            imageName: email,
-            image: img
-        });
-    }
-    else {
-        return res.status(400).send();
-    }
+    const user = yield User_1.default.findOne({ email });
+    if (!user)
+        return res.sendStatus(404);
+    user.profileImage = req.body.src;
+    yield user.save();
+    return res.status(200).json(req.body);
 });
 exports.default = updateProfileImage;

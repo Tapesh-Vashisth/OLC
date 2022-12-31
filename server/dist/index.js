@@ -9,11 +9,12 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const authRoutes_1 = __importDefault(require("./routes/auth/authRoutes"));
-const verifyJWT_1 = __importDefault(require("./middleware/verifyJWT"));
+const productRoutes_1 = __importDefault(require("./routes/product/productRoutes"));
+// import verifyJWT from "./middleware/verifyJWT";
 const cookieParse = require("cookie-parser");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-app.use(express_1.default.json());
+app.use(express_1.default.json({ limit: '50mb' }));
 app.use(body_parser_1.default.json());
 app.use(cookieParse());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
@@ -24,7 +25,7 @@ app.use((0, cors_1.default)({
 }));
 // routing 
 app.use("/api/auth", authRoutes_1.default);
-app.use(verifyJWT_1.default);
+app.use("/api/products", productRoutes_1.default);
 app.all("*", (req, res) => {
     res.status(404).json({ message: "not found" });
 });

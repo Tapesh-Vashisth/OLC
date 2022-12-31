@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const productSchema = new Schema({
-    projectId: {
+    productId: {
         type: String,
         required: true,
         unique: true
@@ -16,7 +16,7 @@ const productSchema = new Schema({
         type: [String],
         default: []
     },
-    name: {
+    title: {
         type: String,
         required: true
     },
@@ -36,7 +36,12 @@ const productSchema = new Schema({
         type: String
     },
     seller: {
-        type: String
+        type: String,
+        required: true
+    },
+    buyer: {
+        type: String,
+        default: ""
     },
     location: {
         type: String,
@@ -47,5 +52,5 @@ const productSchema = new Schema({
         required: true
     }
 });
-const productModel = mongoose.model("User", productSchema);
+const productModel = mongoose.model("Product", productSchema);
 exports.default = productModel;

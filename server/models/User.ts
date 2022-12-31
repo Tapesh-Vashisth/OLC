@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+    userId: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -23,19 +27,17 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    projects: {
+    products: {
+        type: [String],
+        default: []
+    },
+    bought: {
         type: [String],
         default: []
     },
     profileImage: {
-        type: {
-            imageName:{type:String,required:true},
-            image:{
-                    data:Buffer,
-                    contentType:String
-                }
-        },
-        default: null
+        type: String,
+        default: ""
     },
     refreshToken: String
 })

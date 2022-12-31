@@ -7,7 +7,7 @@ const userDetails = async (req: any, res: Response) => {
 
     if (!user) return res.sendStatus(404);
 
-    res.status(200).json({name: user.name, email: user.email, profileImage: user.profileImage ? user.profileImage : null, description: user.description, phoneNumber: user.phoneNumber});
+    res.status(200).json({userId: user.userId, name: user.name, products: user.products, bought: user.bought, email: user.email, profileImage: user.profileImage ? user.profileImage : null, description: user.description, phoneNumber: user.phoneNumber});
 }
 
 export default userDetails;

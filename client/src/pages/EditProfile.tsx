@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useUpdateProfileMutation } from "../features/auth/authApiSlice";
 import { authActions } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import ConvertToBase64 from "../helper/ConvertToBase64";
 import { useUpdateProfileImageMutation } from "../features/auth/authApiSlice";
 
 const EditProfile = () => {
@@ -54,18 +55,21 @@ const EditProfile = () => {
       }
   }
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProfileImage(e.target.files ? e.target.files : null);
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files){
+        const file = e.target.files[0];
+        const base64 = await ConvertToBase64(file);
+        setProfileImage(base64);
+    }
   }
 
   const handleProImageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
     if (profileImage){
-      const formData = new FormData();
-      formData.append('file', profileImage[0]);
       try {
-        const response = await updateProfileImage(formData).unwrap();
-        dispatch(authActions.updateProfileImage(response));
+        const response = await updateProfileImage({src: profileImage}).unwrap();
+        console.log(response);
+        dispatch(authActions.updateProfileImage(response.src));
       } catch (err: any) {
         alert("something went wrong!");
       }
@@ -78,7 +82,7 @@ const EditProfile = () => {
         <Stack direction = "column" spacing = {2} alignItems = "center">
           {
             user.profileImage ? 
-            <img className = "proImage" src={`data:${user.profileImage["image"]["contentType"]};base64,${btoa(String.fromCharCode(...new Uint8Array(user.profileImage["image"]["data"]["data"])))}`}  alt="" /> 
+            <img className = "proImage" src={user.profileImage}  alt="" /> 
             :
             <Stack className="proImage" style={{background: "grey"}} justifyContent = "center" alignItems = "center">No Image</Stack>
           }

@@ -4,14 +4,15 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import authRouter from "./routes/auth/authRoutes";
-import verifyJWT from "./middleware/verifyJWT";
+import productRouter from "./routes/product/productRoutes";
+// import verifyJWT from "./middleware/verifyJWT";
 const cookieParse = require("cookie-parser");
 dotenv.config();
 
 const app: Express = express();
 
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.json());
 app.use(cookieParse());
 app.use(bodyParser.urlencoded({extended: true}))
@@ -24,7 +25,7 @@ app.use(cors({
 
 // routing 
 app.use("/api/auth", authRouter);
-app.use(verifyJWT);
+app.use("/api/products", productRouter);
 
 app.all("*", (req, res) => {
     res.status(404).json({message: "not found"});
