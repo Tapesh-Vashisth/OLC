@@ -38,6 +38,11 @@ const productsSlice = createSlice({
         },
         setProducts: (state, action) => {
             state.productsCollection = action.payload;
+        },
+        setFilter: (state, action) => {
+            state.filter.category = action.payload.category;
+            state.filter.state = action.payload.state;
+            state.filter.price = action.payload.price;
         }
     }
 })

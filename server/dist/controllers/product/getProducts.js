@@ -15,17 +15,58 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Product_1 = __importDefault(require("../../models/Product"));
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.query);
+    // const {limit, notUserId, userId, category, state, price} = req.query;
+    const { limit, skip } = req.query;
+    let query = {};
+    Object.keys(req.query).forEach(function (key, index) {
+        switch (key) {
+            case "notUserId":
+                query.seller = { $ne: req.query.notUserId };
+                break;
+            case "userId":
+                query.seller = req.query.userId;
+                break;
+            case "category":
+                if (req.query.category !== "all") {
+                    query.category = req.query.category;
+                }
+                break;
+            case "state":
+                if (req.query.state !== "all") {
+                    query.state = req.query.state;
+                }
+                break;
+            case "sold":
+                query.sold = req.query.sold;
+                break;
+        }
+    });
     let products;
     try {
-        if (req.query.notUserId) {
-            products = yield Product_1.default.find({ seller: { $ne: req.query.notUserId }, sold: false }, { images: { $slice: 1 } });
-        }
-        else if (req.query.userId) {
-            products = yield Product_1.default.find({ seller: req.query.userId, sold: false }, { images: { $slice: 1 } });
+        if (limit) {
+            if (skip) {
+                products = yield Product_1.default.find(query, { images: { $slice: 1 } }).skip(skip).limit(limit);
+            }
+            else {
+                products = yield Product_1.default.find(query, { images: { $slice: 1 } }).limit(limit);
+            }
         }
         else {
-            products = yield Product_1.default.find({ sold: false }, { images: { $slice: 1 } });
+            if (skip) {
+                products = yield Product_1.default.find(query, { images: { $slice: 1 } }).skip(skip);
+            }
+            else {
+                products = yield Product_1.default.find(query, { images: { $slice: 1 } });
+            }
         }
+        console.log(query);
+        // if (req.query.notUserId) {
+        //     products = await productModel.find(query, {images: {$slice: 1}}).limit(req.query.limit);
+        // } else if (req.query.userId) {
+        //     products = await productModel.find(query, {images: {$slice: 1}});
+        // } else {
+        //     products = await productModel.find(query, {images: {$slice: 1}});
+        // }
         res.status(200).json(products);
     }
     catch (err) {

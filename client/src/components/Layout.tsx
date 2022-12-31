@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 const Layout = () => {
   return (
-    <Stack sx = {{minHeight: "100vh"}} rowGap = "40px" justifyContent = "space-between">
+    <Stack sx = {{minHeight: "100vh"}} rowGap = "30px" justifyContent = "space-between">
       <Navbar />
       <section style = {{flexGrow: 1}}>
         <Outlet />
