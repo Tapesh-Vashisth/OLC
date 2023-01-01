@@ -31,7 +31,7 @@ const login = async (req: any, res: Response) => {
         foundUser.refreshToken = refreshToken
         await foundUser.save()
         
-        res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "strict", secure: true, maxAge: 24 * 60 * 60 * 1000})
+        res.cookie("jwt", refreshToken, {httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000})
         res.json({userId: foundUser.userId, accessToken, products: foundUser.products, name: foundUser.name, bought: foundUser.bought, email: foundUser.email, profileImage: foundUser.profileImage ? foundUser.profileImage : null, description: foundUser.description, phoneNumber: foundUser.phoneNumber});
     }else{
         res.sendStatus(401)
