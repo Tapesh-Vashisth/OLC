@@ -142,7 +142,7 @@ const SellCategory = () => {
                     {/* location */}
                     <Stack padding = "25px" spacing = {2} style={{borderBottom: "1px solid grey"}}>
                         <h3>Enter the Location</h3>
-                        <TextField type="text" value = {location} onChange = {handleChangeLocation} id="filled-basic" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
+                        <TextField type="text" value = {location} onChange = {handleChangeLocation} id="filled-basic" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} required />
                         <select name="state" value = {state} onChange={handleChangeState} id="state" className="form-control" required>
                             <option value="">select a state</option>
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
