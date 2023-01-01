@@ -22,7 +22,7 @@ const getProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     if (!product)
         return res.status(404).send();
     // get the seller 
-    const seller = yield User_1.default.findOne({ seller: product.seller });
+    const seller = yield User_1.default.findOne({ userId: product.seller });
     if (!seller)
         return res.status(404).send();
     return res.status(200).json({ product, seller: { name: seller.name, profileImage: seller.profileImage, email: seller.email } });

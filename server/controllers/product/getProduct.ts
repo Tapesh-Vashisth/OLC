@@ -11,10 +11,10 @@ const getProduct = async (req: any, res: Response) => {
     if (!product) return res.status(404).send();
 
     // get the seller 
-    const seller = await userModel.findOne({seller: product.seller});
-
+    const seller = await userModel.findOne({userId: product.seller});
+    
     if (!seller) return res.status(404).send();
-
+    
     return res.status(200).json({product, seller : {name: seller.name, profileImage: seller.profileImage, email: seller.email}});
 };
 

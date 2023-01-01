@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Grid, Stack, Button } from "@mui/material";
 import baseurl from '../api/baseurl';
@@ -10,7 +10,7 @@ import { useBuyProductMutation } from '../features/product/productApiSlice';
 
 const ProductMain = () => {
     const [buyProduct] = useBuyProductMutation();
-    const dispatch = useAppDispatch();
+    const buyRef = useRef<HTMLButtonElement>(null);
     const user = useAppSelector((state) => state.auth);
     const {productId} = useParams();
     const navigate = useNavigate();
@@ -26,6 +26,10 @@ const ProductMain = () => {
     }
 
     const BuyHandler = async (e: React.FormEvent<HTMLButtonElement>) => {
+        if (buyRef.current){
+            buyRef.current.setAttribute("disabled", "");
+            buyRef.current.style.opacity = "0.5";
+        }
         if (user.userId) {
             try {
                 const response = await buyProduct({productId}).unwrap();
@@ -35,6 +39,10 @@ const ProductMain = () => {
             }
         } else {
             navigate("/login");
+        }
+        if (buyRef.current){
+            buyRef.current.removeAttribute("disabled");
+            buyRef.current.style.opacity = "1";
         }
     }
 
@@ -93,7 +101,12 @@ const ProductMain = () => {
                         <Stack direction = "column" spacing = {2} padding = {2} style = {{borderBottom: "1px solid grey"}}> 
                             <h2 style = {{fontWeight: "bold"}}>Seller</h2>
                             <Stack direction = "row" spacing={2}>
-                                <img src = {productData.seller.profileImage} style = {{width: "90px", height: "90px", borderRadius: "100%"}}></img>
+                                {
+                                    productData.seller.profileImage ? 
+                                    <img src = {productData.seller.profileImage} style = {{width: "90px", height: "90px", borderRadius: "100%"}}></img>
+                                    :
+                                    <div style = {{width: "90px", height: "90px", borderRadius: "100%", display: "flex", justifyContent: "center", alignItems: "center", background: 'gray'}}>no image</div>
+                                }
                                 <Stack>
                                     <h3>{productData.seller.name}</h3>
                                     <p>{productData.seller.email}</p>
@@ -110,7 +123,7 @@ const ProductMain = () => {
                         </Stack>
                         {/* buy button  */}
                         <Stack direction= "column" spacing = {3} padding = {2}>
-                            <Button style = {{background: "lightGreen"}} onClick = {BuyHandler}>
+                            <Button ref = {buyRef} style = {{background: "lightGreen"}} onClick = {BuyHandler}>
                                 Buy Now
                             </Button>
                         </Stack>

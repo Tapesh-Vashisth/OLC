@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState, useRef, ReactSVG} from "react";
 import { useParams, NavLink } from "react-router-dom";
 import {Stack, Typography, TextField, Button} from "@mui/material";
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useAddProductMutation } from "../features/product/productApiSlice";
 
 const SellCategory = () => {
+    const submitRef = useRef<HTMLButtonElement>(null);
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.auth);
     const {category} = useParams();
@@ -22,6 +23,10 @@ const SellCategory = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (submitRef.current){
+            submitRef.current.setAttribute("disabled", "");
+            submitRef.current.style.opacity = "0.5";
+        }
         try {
             const response = await addProduct({title, description, price, location, images, state, category, seller: user.userId}).unwrap();
             setTitle("");
@@ -30,9 +35,17 @@ const SellCategory = () => {
             setImages([]);
             setState("");
             setLocation("");
+            if (submitRef.current){
+                submitRef.current.removeAttribute("disabled");
+                submitRef.current.style.opacity = "1";
+            }
             setImagesUploaded([false, false, false, false]);
             alert("success");
         } catch (err: any) {
+            if (submitRef.current){
+                submitRef.current.removeAttribute("disabled");
+                submitRef.current.style.opacity = "1";
+            }
             alert("something went wrong");
         }
     }
@@ -173,7 +186,7 @@ const SellCategory = () => {
 
                     {/* submit button */}
                     <Stack padding = "25px" spacing = {2}>
-                        <Button type = "submit" style = {{background: "green", color: "white"}}>let's go</Button>
+                        <Button type = "submit" ref = {submitRef} style = {{background: "green", color: "white"}}>let's go</Button>
                     </Stack>    
                 </Stack>
             </form>

@@ -23,7 +23,7 @@ const Product = (props: props) => {
             </Stack>
             {/* data  */}
             <Stack direction="column" padding="0px 10px" spacing={0}>
-                <h3>&#8377; {props.price}</h3>
+                <h3><span style = {{marginRight: "3px"}}>&#8377;</span>{props.price}</h3>
                 <p style={{fontSize: "18px"}}>{props.category}</p>
                 <p>{props.title}</p>
                 <p style = {{fontSize: "14px"}}>location: {props.state}</p>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useRef} from "react";
 import { useAppSelector, useAppDispatch } from "../store/hooks"
 import {Grid, Stack, Button} from "@mui/material";
 import { NavLink } from "react-router-dom";
@@ -19,6 +19,7 @@ const EditProfile = () => {
   const [updateProfile] = useUpdateProfileMutation();
   const navigate = useNavigate();
   const [updateProfileImage] = useUpdateProfileImageMutation();
+  const profileRef = useRef<HTMLButtonElement>(null);
 
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -64,13 +65,25 @@ const EditProfile = () => {
   }
 
   const handleProImageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (profileRef.current){
+        profileRef.current.style.opacity = "0.5";
+        profileRef.current.setAttribute("disabled", "");
+    }
     e.preventDefault(); 
     if (profileImage){
       try {
         const response = await updateProfileImage({src: profileImage}).unwrap();
         dispatch(authActions.updateProfileImage(response.src));
+        if (profileRef.current){
+          profileRef.current.style.opacity = "1";
+          profileRef.current.removeAttribute("disabled");
+        }
       } catch (err: any) {
         alert("something went wrong!");
+        if (profileRef.current){
+            profileRef.current.style.opacity = "1";
+            profileRef.current.removeAttribute("disabled");
+        }
       }
     }
   }
@@ -88,7 +101,7 @@ const EditProfile = () => {
           <form onSubmit={handleProImageSubmit}>
             <Stack direction = "column" spacing = {2}>
               <input type="file" onChange={handleFile} required />
-              <Button type = "submit" style = {{background: "lightGreen"}}>Update</Button>
+              <Button type = "submit" ref = {profileRef} style = {{background: "lightGreen"}}>Update</Button>
             </Stack>
           </form>
           <NavLink to = "/viewProfile" style = {{textDecoration: "none", textAlign: "center"}}><Button sx = {{background: "pink"}}>View profile</Button></NavLink>
