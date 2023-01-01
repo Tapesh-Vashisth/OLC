@@ -21,7 +21,7 @@ const categories = [
 
 const Sell = () => {
     return (
-        <Stack direction = "column" alignItems="center" spacing = {2}>
+        <Stack direction = "column" alignItems="center" spacing = {2} marginBottom = "30px">
             <h2 style = {{textAlign: "center"}}>Post your Ad</h2>
             <h4 style = {{textAlign: "center"}}>Choose A Category</h4>
             <Grid container columns = {2} sx = {{border: "2px solid black", width: {xs: "95%", sm: "90%"}}}>

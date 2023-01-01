@@ -39,6 +39,9 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             case "sold":
                 query.sold = req.query.sold;
                 break;
+            case "title":
+                query.title = { $regex: `${req.query.title}`, $options: "i" };
+                break;
         }
     });
     let products;

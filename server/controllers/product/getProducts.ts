@@ -28,6 +28,9 @@ const getProducts = async (req: any, res: Response) => {
             case "sold":
                 query.sold = req.query.sold;
                 break;
+            case "title":
+                query.title = {$regex: `${req.query.title}`, $options: "i"};
+                break;
         }
     });
 

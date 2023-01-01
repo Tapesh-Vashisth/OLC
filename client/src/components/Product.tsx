@@ -12,13 +12,13 @@ interface props{
 const Product = (props: props) => {
     
     return (
-        <Stack className='product' direction = "column" spacing={3} style = {{border: "1px solid black", background: "#bac5d6", cursor: "pointer"}}>
+        <Stack className='product' direction = "column" spacing={3} style = {{border: "1px solid black", background: "white", cursor: "pointer"}}>
             {/* image  */}
             <Stack padding="20px 10px" alignItems="center" justifyContent="center">
                 {
                     props.imgSrc ?                  
-                    <img src={props.imgSrc} alt={props.category} style = {{maxWidth: "100%", height: "180px"}} /> :
-                    <div style = {{width: "100%", height: "400px"}}>No image</div>
+                    <img src={props.imgSrc} alt={props.category} style = {{maxWidth: "100%", height: "180px", boxShadow: "2px 2px 8px grey"}} /> :
+                    <div style = {{width: "100%", height: "180px", boxShadow: "2px 2px 8px grey"}}>No image</div>
                 }
             </Stack>
             {/* data  */}

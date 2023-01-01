@@ -69,12 +69,12 @@ const Login = () => {
 
                 {errmsg ? <p className="center error" ref = {errRef}>{errmsg}</p>: null}
 
-                <h1 className="center">login</h1>
+                <h1 className="center">Login</h1>
 
                 <form onSubmit={handleSubmit} className = "authForm">
                     <Stack direction = "column" spacing={2}>
                         <Stack direction = "column">
-                            <label htmlFor="email">email:</label>
+                            <label htmlFor="email">Email:</label>
                             <input
                                 className="authInput"
                                 type = "text"

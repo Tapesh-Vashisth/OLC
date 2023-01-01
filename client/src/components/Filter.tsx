@@ -34,11 +34,6 @@ export default function BasicModal(props: props) {
     const handleClose = () => {
         setOpen(false)
     };
-
-    useEffect(() => {
-        setState(filter.state);
-        setCategory(filter.category);
-    }, [])
     
     const handleChangeState = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setState(e.target.value);
@@ -70,7 +65,7 @@ export default function BasicModal(props: props) {
             <Box sx={style}>
                 <Stack direction = "column" spacing = {2}>
                     <div>
-                        <p style = {{margin : "0px"}}>state</p>
+                        <p style = {{margin : "0px"}}>State</p>
                         <select name="state" value = {state} onChange={handleChangeState} id="state" className="form-control" required>
                             <option value="all">all</option>
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -124,7 +119,7 @@ export default function BasicModal(props: props) {
                             <option value="Pets">Pets</option>
                         </select>
                     </div>
-                    <Button onClick = {applyHandler}>Apply</Button>
+                    <Button onClick = {applyHandler} style = {{color: "green"}}>Apply</Button>
                 </Stack>
             </Box>
         </Modal>

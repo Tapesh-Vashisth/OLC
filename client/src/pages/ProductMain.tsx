@@ -80,7 +80,7 @@ const ProductMain = () => {
                             </Stack>
                             {/* description  */}
                             <Stack direction="column" padding = {2} style = {{borderBottom: "1px solid grey"}}>
-                                <h2>Description</h2>
+                                <h2 style = {{fontWeight: "bold"}}>Description</h2>
                                 <p>
                                     {productData.product.description}
                                     {/* Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error mollitia id suscipit nesciunt labore nemo sint, quidem Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam earum explicabo reprehenderit quia, odit illo soluta inventore aliquam nobis id eligendi quibusdam porro dicta ullam nesciunt ad molestias fugiat a eaque! Delectus facilis voluptates voluptate repellendus praesentium? Iure at beatae sit suscipit voluptatum! omnis illo ratione vel, soluta optio libero deserunt natus sed atque enim! Fuga perferendis pariatur facere explicabo. */}
@@ -91,7 +91,7 @@ const ProductMain = () => {
                     <Grid item xs = {12} md = {3} padding={2}>
                         {/* seller description */}
                         <Stack direction = "column" spacing = {2} padding = {2} style = {{borderBottom: "1px solid grey"}}> 
-                            <h2>Seller</h2>
+                            <h2 style = {{fontWeight: "bold"}}>Seller</h2>
                             <Stack direction = "row" spacing={2}>
                                 <img src = {productData.seller.profileImage} style = {{width: "90px", height: "90px", borderRadius: "100%"}}></img>
                                 <Stack>
@@ -102,14 +102,14 @@ const ProductMain = () => {
                         </Stack>
                         {/* location  */}
                         <Stack direction= "column" spacing = {3} padding = {2} style = {{borderBottom: "1px solid grey"}}>
-                            <h3>Location</h3>
+                            <h3 style = {{fontWeight: "bold"}}>Location</h3>
                             <Stack direction="column">
                                 <p>{productData.product.location}</p    >
                                 <p>{productData.product.state}</p>
                             </Stack>
                         </Stack>
                         {/* buy button  */}
-                        <Stack direction= "column" spacing = {3} padding = {2} style = {{borderBottom: "1px solid grey"}}>
+                        <Stack direction= "column" spacing = {3} padding = {2}>
                             <Button style = {{background: "lightGreen"}} onClick = {BuyHandler}>
                                 Buy Now
                             </Button>

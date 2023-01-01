@@ -132,6 +132,7 @@ const SellCategory = () => {
                         <h3>Enter the Location</h3>
                         <TextField type="text" value = {location} onChange = {handleChangeLocation} id="filled-basic" variant="filled" sx={{width: {sm: "60%", xs: "100%"}}} />
                         <select name="state" value = {state} onChange={handleChangeState} id="state" className="form-control" required>
+                            <option value="">select a state</option>
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -172,8 +173,8 @@ const SellCategory = () => {
                     </Stack>    
 
                     {/* submit button */}
-                    <Stack padding = "25px" spacing = {2} style={{borderBottom: "1px solid grey"}}>
-                        <Button type = "submit" style = {{background: "lightGreen"}}>let's go</Button>
+                    <Stack padding = "25px" spacing = {2}>
+                        <Button type = "submit" style = {{background: "green", color: "white"}}>let's go</Button>
                     </Stack>    
                 </Stack>
             </form>

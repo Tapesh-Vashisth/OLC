@@ -5,6 +5,7 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
+import Fab from '@mui/material/Fab';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -19,6 +20,7 @@ import { useAppSelector } from '../store/hooks';
 import { selectCurrentToken } from '../features/auth/authSlice';
 import { useGetUserDetailsQuery } from '../features/auth/authApiSlice';
 import ProfileMenu from './ProfileMenu';
+import AddIcon from '@mui/icons-material/Add';
 
 interface Props {
 	window?: () => Window;
@@ -39,7 +41,10 @@ export default function Navbar(props: Props) {
 	};
 
 	// {name: <MarkUnreadChatAltIcon />, to: "/chat"},
-    const navLogItems = [{name: "Sell", to: "/sell"}];
+    const navLogItems = [{name: <Fab variant="extended" size="medium" color="primary" aria-label="add">
+		<AddIcon sx={{ mr: 1 }} />
+		Sell
+	</Fab>, to: "/sell"}];
     const navLoggedOutItems = [{name: 'Login', to: "/login"}, {name: "Sell", to: "/login"}];
     const navItems = token ? navLogItems : navLoggedOutItems;
 
@@ -69,7 +74,7 @@ export default function Navbar(props: Props) {
 
 	return (
 		<nav>
-			<AppBar component="nav" style={{ position: "static", backgroundColor: "rgba(0, 0, 0, 0.29)", boxShadow: "none" }}>
+			<AppBar component="nav" style={{ position: "static", backgroundColor: "rgba(242, 232, 41, 0.5)", boxShadow: "2px 2px 8px grey" }}>
 				<Toolbar style = {{paddingRight: "0px"}}>
 					<IconButton
 						color="inherit"

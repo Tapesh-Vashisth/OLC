@@ -79,7 +79,7 @@ const Signup = () => {
                 <form onSubmit={handleSubmit} className = "authForm">
                     <Stack direction = "column" spacing={2}>
                         <Stack direction = "column">
-                            <label htmlFor="name">name:</label>
+                            <label htmlFor="name">Name:</label>
                             <input
                                 className="authInput"
                                 type = "text"
@@ -93,7 +93,7 @@ const Signup = () => {
                         </Stack>
 
                         <Stack direction = "column">
-                            <label htmlFor="email">email:</label>
+                            <label htmlFor="email">Email:</label>
                             <input
                                 className="authInput"
                                 type = "text"
@@ -122,7 +122,7 @@ const Signup = () => {
                         <button className="authButton">Sign up</button>
                     </Stack>
                 </form>
-                    <NavLink to = "/login" className="center links">login</NavLink>
+                    <NavLink to = "/login" className="center links">Login</NavLink>
             </Stack>
         }
         </>

@@ -35,18 +35,18 @@ const Home = () => {
 
   const handleLoadMore = async () => {
     if (user.userId){
-      addProducts(`/products/getProducts/?limit=25&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false&notUserId=${user.userId}`);
+      addProducts(`/products/getProducts/?limit=1&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false&notUserId=${user.userId}`);
     } else {
-      addProducts(`/products/getProducts/?limit=25&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false`);
+      addProducts(`/products/getProducts/?limit=1&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false`);
     }
   }
 
   useEffect(() => {
     console.log("get products");
     if (user.userId){
-      getAllProducts(`/products/getProducts/?limit=25&notUserId=${user.userId}&skip=0&sold=false`);
+      getAllProducts(`/products/getProducts/?limit=1&notUserId=${user.userId}&skip=0&sold=false`);
     }else{
-      getAllProducts(`/products/getProducts/?limit=25&sold=false&skip=0`);
+      getAllProducts(`/products/getProducts/?limit=1&sold=false&skip=0`);
     }
   }, [user]);
 
@@ -72,7 +72,7 @@ const Home = () => {
                 null
             }
         </Grid>
-        <Button style = {{backgroundColor: "lightGreen"}} onClick = {handleLoadMore}>
+        <Button style = {{backgroundColor: "red", color: "white"}} onClick = {handleLoadMore}>
           load more
         </Button>
       </Stack>
