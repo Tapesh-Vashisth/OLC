@@ -3,7 +3,7 @@ import productModel from "../../models/Product";
 import userModel from "../../models/User";
 
 const getProduct = async (req: any, res: Response) => {
-    console.log(req.params.productId);
+    console.log("getProduct");
     const productId = req.params.productId;
     // get product 
     const product = await productModel.findOne({productId});

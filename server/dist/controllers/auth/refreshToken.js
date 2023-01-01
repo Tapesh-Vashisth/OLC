@@ -18,17 +18,14 @@ const jwt = require("jsonwebtoken");
 const refreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("refresh");
     const cookies = req.cookies;
-    console.log(cookies);
     if (!(cookies === null || cookies === void 0 ? void 0 : cookies.jwt))
         return res.sendStatus(401);
     const refreshtoken = cookies.jwt;
-    console.log(refreshToken);
     const foundUser = yield User_1.default.findOne({ refreshToken: refreshtoken }).exec();
     if (!foundUser)
         return res.sendStatus(403);
     // evaluate jwt 
     jwt.verify(refreshtoken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-        console.log("inside refresh jwt");
         if (err || foundUser.email !== decoded.email)
             return res.sendStatus(403);
         const accessToken = jwt.sign({ email: foundUser.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10s" });

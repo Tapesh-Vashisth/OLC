@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Product_1 = __importDefault(require("../../models/Product"));
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.query);
+    console.log("getProducts");
     // const {limit, notUserId, userId, category, state, price} = req.query;
     const { limit, skip } = req.query;
     let query = {};
@@ -62,14 +62,6 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 products = yield Product_1.default.find(query, { images: { $slice: 1 } });
             }
         }
-        console.log(query);
-        // if (req.query.notUserId) {
-        //     products = await productModel.find(query, {images: {$slice: 1}}).limit(req.query.limit);
-        // } else if (req.query.userId) {
-        //     products = await productModel.find(query, {images: {$slice: 1}});
-        // } else {
-        //     products = await productModel.find(query, {images: {$slice: 1}});
-        // }
         res.status(200).json(products);
     }
     catch (err) {

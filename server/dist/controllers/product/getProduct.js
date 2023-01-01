@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Product_1 = __importDefault(require("../../models/Product"));
 const User_1 = __importDefault(require("../../models/User"));
 const getProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.params.productId);
+    console.log("getProduct");
     const productId = req.params.productId;
     // get product 
     const product = yield Product_1.default.findOne({ productId });

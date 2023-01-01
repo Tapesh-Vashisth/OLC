@@ -9,7 +9,6 @@ const login = async (req: any, res: Response) => {
     const {email, password} = req.body;
     if (!email || !password) return res.status(400).json({"message": "username and password are required!"});
     
-    console.log(email, password);
     const foundUser = await userModel.findOne({email}).exec();
     if (!foundUser) return res.sendStatus(401);
     

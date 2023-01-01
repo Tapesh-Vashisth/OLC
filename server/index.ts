@@ -32,8 +32,9 @@ app.all("*", (req, res) => {
 })
 
 const port = process.env.PORT || 8000;
- 
-mongoose.connect("mongodb://localhost:27017/OLCdb").then(() => {
+
+// mongodb://localhost:27017/OLCdb
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@olc.jysveqm.mongodb.net/?retryWrites=true&w=majority`).then(() => {
     console.log("database connected succesfully");
     app.listen(port, () => {
         console.log(`server listening on port ${port}`)

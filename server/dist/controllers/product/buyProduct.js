@@ -17,7 +17,6 @@ const User_1 = __importDefault(require("../../models/User"));
 const buyProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("buyProduct");
     const productId = req.body;
-    console.log("proId: ", productId);
     const email = req.email;
     const product = yield Product_1.default.findOne({ productId: productId.productId });
     if (!product)

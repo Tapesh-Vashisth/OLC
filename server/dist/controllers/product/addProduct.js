@@ -16,9 +16,9 @@ const Product_1 = __importDefault(require("../../models/Product"));
 const User_1 = __importDefault(require("../../models/User"));
 const { v4: uuidv4 } = require('uuid');
 const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(addProduct);
     if (req.email) {
         const data = Object.assign(Object.assign({}, req.body), { productId: uuidv4() });
-        console.log(data);
         const user = yield User_1.default.findOne({ email: req.email });
         if (!user)
             return res.sendStatus(404);

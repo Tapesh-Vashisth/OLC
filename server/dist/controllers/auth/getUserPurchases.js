@@ -16,7 +16,6 @@ const Product_1 = __importDefault(require("../../models/Product"));
 const getUserPurchases = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("getUserPurchases");
     const userId = req.params.userId;
-    console.log(userId);
     const product = yield Product_1.default.find({ buyer: userId }, { images: { $slice: 1 } }).select("category price title images state sold");
     if (!product)
         return res.status(404).send();

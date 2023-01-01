@@ -5,7 +5,6 @@ import userModel from "../../models/User";
 const buyProduct = async (req: any, res: Response) => {
     console.log("buyProduct");
     const productId = req.body;
-    console.log("proId: ", productId);
     const email = req.email;
     const product = await productModel.findOne({productId: productId.productId});
     

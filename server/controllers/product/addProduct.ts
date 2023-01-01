@@ -4,9 +4,9 @@ import userModel from "../../models/User";
 const { v4: uuidv4 } = require('uuid');
 
 const addProduct = async (req: any, res: Response) => {
+    console.log(addProduct);
     if (req.email){
         const data = {...req.body, productId: uuidv4()};
-        console.log(data);
         const user = await userModel.findOne({email: req.email});
         if (!user) return res.sendStatus(404);
 

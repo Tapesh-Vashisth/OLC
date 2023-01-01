@@ -22,7 +22,6 @@ const SellCategory = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(title, description, price, images, location, state, imagesUploaded);
         try {
             const response = await addProduct({title, description, price, location, images, state, category, seller: user.userId}).unwrap();
             setTitle("");

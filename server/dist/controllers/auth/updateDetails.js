@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_1 = __importDefault(require("../../models/User"));
 const updateDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("updateDetails");
     const details = req.body;
-    console.log(details);
     const user = yield User_1.default.findOne({ email: req.email });
     if (!user)
         return res.status(404).send();

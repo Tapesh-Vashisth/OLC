@@ -68,7 +68,6 @@ const EditProfile = () => {
     if (profileImage){
       try {
         const response = await updateProfileImage({src: profileImage}).unwrap();
-        console.log(response);
         dispatch(authActions.updateProfileImage(response.src));
       } catch (err: any) {
         alert("something went wrong!");

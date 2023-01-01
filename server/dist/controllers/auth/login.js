@@ -21,7 +21,6 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     if (!email || !password)
         return res.status(400).json({ "message": "username and password are required!" });
-    console.log(email, password);
     const foundUser = yield User_1.default.findOne({ email }).exec();
     if (!foundUser)
         return res.sendStatus(401);

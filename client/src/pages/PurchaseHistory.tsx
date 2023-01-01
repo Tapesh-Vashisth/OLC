@@ -13,7 +13,6 @@ const PurchaseHistory = () => {
         if (user.userId) {
             try {   
                 const response = await axios.get(baseurl + "/auth/user/getUserPurchases/" + user.userId);
-                console.log(response.data);
                 setPurchases(response.data);
             } catch (err) {
                 alert("something went wrong");

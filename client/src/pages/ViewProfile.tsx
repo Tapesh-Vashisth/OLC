@@ -14,7 +14,6 @@ const ViewProfile = () => {
   const getProducts = async () => {
     try {
       const response = await axios.get(baseurl + "/auth/user/getUserProducts/" + user.userId);    
-      console.log(response.data);
       setAds(response.data);
     } catch (err) {
       alert("couldn't fetch ads");

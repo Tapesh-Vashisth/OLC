@@ -19,10 +19,9 @@ const SearchBar = () => {
     const getAllProducts = async (endpoint: string) => {
         try {
             const response = await axios.get(baseurl + endpoint);
-            console.log(response.data);
             dispatch(productsActions.setProducts(response.data));
         } catch (err: any) {
-            console.log("something went wrong");
+            alert("something went wrong");
         }
     }
     

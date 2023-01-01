@@ -4,7 +4,6 @@ import productModel from "../../models/Product";
 const getUserProducts = async (req: any, res: Response) => {
     console.log("get user products");
     const userId = req.params.userId;
-    console.log(userId);
 
     const product = await productModel.find({seller: userId}, {images: {$slice: 1}}).select("category price title images state sold");
 

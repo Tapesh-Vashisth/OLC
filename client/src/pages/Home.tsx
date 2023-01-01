@@ -16,20 +16,18 @@ const Home = () => {
   const getAllProducts = async (endpoint: string) => {
     try {
       const response = await axios.get(baseurl + endpoint);
-      console.log(response.data);
       dispatch(productsActions.setProducts(response.data));
     } catch (err: any) {
-      console.log("something went wrong");
+      alert("something went wrong");
     }
   }
 
   const addProducts = async (endpoint: string) => {
     try {
       const response = await axios.get(baseurl + endpoint);
-      console.log(response.data);
       dispatch(productsActions.addProducts(response.data));
     } catch (err: any) {
-      console.log("something went wrong");
+      alert("something went wrong");
     }
   }
 
@@ -42,7 +40,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    console.log("get products");
     if (user.userId){
       getAllProducts(`/products/getProducts/?limit=1&notUserId=${user.userId}&skip=0&sold=false`);
     }else{

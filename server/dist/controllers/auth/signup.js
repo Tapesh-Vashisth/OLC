@@ -17,8 +17,8 @@ const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require('uuid');
 const jwt = require("jsonwebtoken");
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("signup");
     const { name, email, password } = req.body;
-    console.log(name, email, password);
     if (!name || !email || !password)
         return res.status(400).json({ "message": "username and password are required!" });
     // checking for duplicate email in the database 

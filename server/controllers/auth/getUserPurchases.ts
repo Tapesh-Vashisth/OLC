@@ -6,7 +6,6 @@ const getUserPurchases = async (req: any, res: Response) => {
     console.log("getUserPurchases");
 
     const userId = req.params.userId;
-    console.log(userId);
 
     const product = await productModel.find({buyer: userId}, {images: {$slice: 1}}).select("category price title images state sold");
 

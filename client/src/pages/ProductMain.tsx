@@ -21,7 +21,7 @@ const ProductMain = () => {
             const response = await axios.get(baseurl + "/products/getProduct/" + productId);
             setProductData(response.data);
         } catch (err) {
-            console.log("something went wrong!");
+            alert("something went wrong!");
         }
     }
 
