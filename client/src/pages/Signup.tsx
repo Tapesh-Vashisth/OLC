@@ -50,7 +50,7 @@ const Signup = () => {
             }else if(err.originalStatus === 409){
                 setErrmsg("user already exists");
             }else{
-                setErrmsg("login failed");
+                setErrmsg("Signup failed");
             }
             
             if (errRef.current){
