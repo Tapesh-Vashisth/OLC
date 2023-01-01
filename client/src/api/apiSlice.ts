@@ -2,9 +2,9 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { isExternalModuleNameRelative } from "typescript";
 import { authActions } from "../features/auth/authSlice";
 
-// https://olc.onrender.com/api
+// 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api",
+    baseUrl: "https://olc.onrender.com/api",
     credentials: "include",
     prepareHeaders: (headers: Headers, api: any) => {
         const token = api.getState().auth.token;
