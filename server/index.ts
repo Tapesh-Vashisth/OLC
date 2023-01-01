@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(cookieParse());
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors({
-    origin:["http://localhost:3000"],
+    origin:["http://localhost:3000", "https://olcsell.netlify.app"],
     methods:['POST','GET','HEAD','PUT','DELETE'],
     credentials: true
 }))
@@ -33,6 +33,7 @@ app.all("*", (req, res) => {
 
 const port = process.env.PORT || 8000;
 
+// mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@olc.jysveqm.mongodb.net/?retryWrites=true&w=majority
 // mongodb://localhost:27017/OLCdb
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@olc.jysveqm.mongodb.net/?retryWrites=true&w=majority`).then(() => {
     console.log("database connected succesfully");

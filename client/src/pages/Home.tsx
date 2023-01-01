@@ -18,7 +18,7 @@ const Home = () => {
       const response = await axios.get(baseurl + endpoint);
       dispatch(productsActions.setProducts(response.data));
     } catch (err: any) {
-      alert("something went wrong");
+      console.log("couldn't fetch products");
     }
   }
 

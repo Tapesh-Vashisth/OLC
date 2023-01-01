@@ -19,7 +19,7 @@ app.use(body_parser_1.default.json());
 app.use(cookieParse());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://olcsell.netlify.app"],
     methods: ['POST', 'GET', 'HEAD', 'PUT', 'DELETE'],
     credentials: true
 }));
@@ -30,6 +30,7 @@ app.all("*", (req, res) => {
     res.status(404).json({ message: "not found" });
 });
 const port = process.env.PORT || 8000;
+// mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@olc.jysveqm.mongodb.net/?retryWrites=true&w=majority
 // mongodb://localhost:27017/OLCdb
 mongoose_1.default.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@olc.jysveqm.mongodb.net/?retryWrites=true&w=majority`).then(() => {
     console.log("database connected succesfully");

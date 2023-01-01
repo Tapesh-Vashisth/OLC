@@ -3,7 +3,7 @@ import { isExternalModuleNameRelative } from "typescript";
 import { authActions } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api",
+    baseUrl: "https://olc.onrender.com/api",
     credentials: "include",
     prepareHeaders: (headers: Headers, api: any) => {
         const token = api.getState().auth.token;
@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
 
         return headers;
     }
-})
+})  
 
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
     let result: any = await baseQuery(args, api, extraOptions);
