@@ -53,7 +53,7 @@ const Home = () => {
   useEffect(() => {
     if (products.filter.category === "load" && products.filter.state === "load" && products.filter.price === "load"){
       dispatch(productsActions.setFilter({category: "all", state: "all", price: "all"}));
-      getAllProducts(`/products/getProducts/?limit=1&sold=false&skip=0`);
+      getAllProducts(`/products/getProducts/?limit=10&sold=false&skip=0`);
     }
   }, []);
 
