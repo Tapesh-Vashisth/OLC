@@ -34,6 +34,16 @@ export default function BasicModal(props: props) {
     const handleClose = () => {
         setOpen(false)
     };
+
+    useEffect(() => {
+        if (filter.state !== "load"){
+            setState(filter.state);
+        }
+
+        if (filter.category !== "load"){
+            setCategory(filter.category);
+        }
+    }, []);
     
     const handleChangeState = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setState(e.target.value);

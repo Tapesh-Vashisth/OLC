@@ -1,11 +1,10 @@
 import React, {useRef, useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
 import { useAppDispatch } from "../store/hooks";
 import { authActions } from "../features/auth/authSlice";
 import { useLoginMutation } from "../features/auth/authApiSlice";
 import LazyLoading from "../components/LazyLoading";
 import { Stack } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 require("../styles/loginSignup.css");
 
 const Login = () => {
@@ -17,7 +16,6 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [login, {isLoading}] = useLoginMutation();
-
 
     useEffect(() => {
         if (emailRef.current){
@@ -65,7 +63,9 @@ const Login = () => {
             isLoading ? <LazyLoading />
             :
             <Stack direction = "column" spacing = {2} alignItems = "center">
-                <img src = "images/logo.png" className="logo" />
+                <NavLink to = "/">
+                    <img src = "images/logo.png" className="logo" />
+                </NavLink>
 
                 {errmsg ? <p className="center error" ref = {errRef}>{errmsg}</p>: null}
 

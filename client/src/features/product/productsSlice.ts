@@ -23,9 +23,9 @@ interface initialState{
 const initialState: initialState = {
     productsCollection: [],
     filter: {
-        category: "all",
-        state: "all",
-        price: "all"
+        category: "load",
+        state: "load",
+        price: "load"
     }
 }
 
@@ -43,6 +43,11 @@ const productsSlice = createSlice({
             state.filter.category = action.payload.category;
             state.filter.state = action.payload.state;
             state.filter.price = action.payload.price;
+        },
+        removeProduct: (state, action) => {
+            state.productsCollection = state.productsCollection.filter((x) => {
+                return x.productId !== action.payload;
+            })
         }
     }
 })

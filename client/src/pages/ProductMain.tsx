@@ -7,8 +7,10 @@ import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
 import { useBuyProductMutation } from '../features/product/productApiSlice';
+import { productsActions } from '../features/product/productsSlice';
 
 const ProductMain = () => {
+    const dispatch = useAppDispatch();
     const [buyProduct] = useBuyProductMutation();
     const buyRef = useRef<HTMLButtonElement>(null);
     const user = useAppSelector((state) => state.auth);
@@ -33,6 +35,7 @@ const ProductMain = () => {
         if (user.userId) {
             try {
                 const response = await buyProduct({productId}).unwrap();
+                dispatch(productsActions.removeProduct(productId));
                 navigate("/");
             } catch (err: any) {
                 alert("something went wrong");

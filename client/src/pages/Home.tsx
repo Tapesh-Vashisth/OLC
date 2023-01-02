@@ -7,7 +7,6 @@ import Product from "../components/Product";
 import { productsActions } from "../features/product/productsSlice";
 import { NavLink } from "react-router-dom";
 import Filter from "../components/Filter";
-import { load } from "dotenv";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +24,7 @@ const Home = () => {
       const response = await axios.get(baseurl + endpoint);
       dispatch(productsActions.setProducts(response.data));
     } catch (err: any) {
-      console.log("couldn't fetch products");
+      alert("server not responding");
     }
 
     if (loadRef.current){
@@ -53,20 +52,22 @@ const Home = () => {
   }
 
   const handleLoadMore = async () => {
-
     if (user.userId){
       addProducts(`/products/getProducts/?limit=8&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false&notUserId=${user.userId}`);
     } else {
       addProducts(`/products/getProducts/?limit=8&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false`);
     }
-
   }
-
+  
   useEffect(() => {
-    if (user.userId){
-      getAllProducts(`/products/getProducts/?limit=8&notUserId=${user.userId}&skip=0&sold=false`);
-    }else{
-      getAllProducts(`/products/getProducts/?limit=8&sold=false&skip=0`);
+    if (products.filter.category === "load" && products.filter.state === "load" && products.filter.price === "load"){
+      console.log("hiii");
+      dispatch(productsActions.setFilter({category: "all", state: "all", price: "all"}));
+      if (user.userId){
+        getAllProducts(`/products/getProducts/?limit=8&notUserId=${user.userId}&skip=0&sold=false`);
+      }else{
+        getAllProducts(`/products/getProducts/?limit=8&sold=false&skip=0`);
+      }
     }
   }, [user]);
 
