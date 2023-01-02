@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { TextField, Stack } from '@mui/material'
+import { TextField, Stack, CircularProgress } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import baseurl from "../api/baseurl";
 import axios from "axios";
@@ -7,7 +7,12 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { productsActions } from "../features/product/productsSlice";
 import { useNavigate } from "react-router-dom";
 
+interface props{
+    loadVisibility: (state: boolean) => void
+}
+
 const SearchBar = () => {
+    const [loading, setLoading] = useState<boolean>(false);
     const [title, setTitle] = useState<string>("");
     const user = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
@@ -23,24 +28,24 @@ const SearchBar = () => {
         } catch (err: any) {
             alert("something went wrong");
         }
+
+        setLoading(false);
     }
     
     const handleSearch = () => {
-        navigate("/");
-        if (user.userId) {
-            getAllProducts(`/products/getProducts/?limit=25&title=${title}&notUserId=${user.userId}`);
-        }else { 
-            getAllProducts(`/products/getProducts/?limit=25&title=${title}`);
-        }
-        if (title === ""){
-            dispatch(productsActions.setFilter({category: "all", state: "all", price: "all"}));
-        }else{
-            dispatch(productsActions.setFilter({category: "no", state: "no", price: "no"}));
+        if (title !== ""){
+            setLoading(true);
+            if (user.userId) {
+                getAllProducts(`/products/getProducts/?limit=25&title=${title}&notUserId=${user.userId}&sold=false`);
+            }else { 
+                getAllProducts(`/products/getProducts/?limit=25&title=${title}&sold=false`);
+            }
+            navigate("/");
         }
     }
 
     return (
-        <Stack direction = "row" alignItems="center">
+        <Stack direction = "row" alignItems="center" justifyContent="center" spacing = {1}>
             <TextField
                 type="text"
                 inputProps={{
@@ -53,7 +58,11 @@ const SearchBar = () => {
                 value = {title}
                 onChange = {handleChange}
                 />
-            <SearchIcon style = {{width: "30px", cursor: "pointer"}} onClick = {handleSearch} />        
+            {
+                loading ?
+                <CircularProgress /> :
+                <SearchIcon style = {{width: "30px", cursor: "pointer"}} onClick = {handleSearch} />        
+            }
         </Stack>
     )
 }
