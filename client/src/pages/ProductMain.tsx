@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
+import LazyLoading from '../components/LazyLoading';
 import { useBuyProductMutation } from '../features/product/productApiSlice';
 import { productsActions } from '../features/product/productsSlice';
 
@@ -133,7 +134,7 @@ const ProductMain = () => {
                     </Grid>
                 </Grid>
                 : 
-                null
+                <LazyLoading />
             }
         </>
 

@@ -1,7 +1,7 @@
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks"
 import axios from "axios"
-import {Grid, Stack, Button} from "@mui/material";
+import {Grid, Stack, Button, CircularProgress} from "@mui/material";
 import baseurl from "../api/baseurl";
 import Product from "../components/Product";
 import { productsActions } from "../features/product/productsSlice";
@@ -12,13 +12,12 @@ const Home = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth); 
   const products = useAppSelector((state) => state.product);
+  const [loading, setLoading] = useState<boolean>(false);
   const loadRef = useRef<HTMLButtonElement>(null);
+  const [visible, setVisible] = useState<boolean>(false);
   
   const getAllProducts = async (endpoint: string) => {
-    if (loadRef.current){
-      loadRef.current.setAttribute("disabled", "");
-      loadRef.current.style.opacity = "0.5";
-    }
+    setLoading(true);
 
     try {
       const response = await axios.get(baseurl + endpoint);
@@ -27,49 +26,36 @@ const Home = () => {
       alert("server not responding");
     }
 
-    if (loadRef.current){
-      loadRef.current.style.opacity = "1";
-      loadRef.current.removeAttribute("disabled");
-    }
+    setLoading(false);
   }
   
   const addProducts = async (endpoint: string) => {
-    if (loadRef.current){
-      loadRef.current.setAttribute("disabled", "");
-      loadRef.current.style.opacity = "0.5";
-    }
+    setLoading(true);
+
     try {
       const response = await axios.get(baseurl + endpoint);
+      if (response.data && response.data.length === 0){
+        setVisible(true);
+      }
       dispatch(productsActions.addProducts(response.data));
     } catch (err: any) {
       alert("something went wrong");
     }
 
-    if (loadRef.current){
-      loadRef.current.style.opacity = "1";
-      loadRef.current.removeAttribute("disabled");
-    }
+    setLoading(false);
   }
 
   const handleLoadMore = async () => {
-    if (user.userId){
-      addProducts(`/products/getProducts/?limit=8&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false&notUserId=${user.userId}`);
-    } else {
-      addProducts(`/products/getProducts/?limit=8&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false`);
-    }
+    setVisible(false);
+    addProducts(`/products/getProducts/?limit=8&skip=${products.productsCollection.length}&state=${products.filter.state}&category=${products.filter.category}&sold=false`);
   }
   
   useEffect(() => {
     if (products.filter.category === "load" && products.filter.state === "load" && products.filter.price === "load"){
-      console.log("hiii");
       dispatch(productsActions.setFilter({category: "all", state: "all", price: "all"}));
-      if (user.userId){
-        getAllProducts(`/products/getProducts/?limit=8&notUserId=${user.userId}&skip=0&sold=false`);
-      }else{
-        getAllProducts(`/products/getProducts/?limit=8&sold=false&skip=0`);
-      }
+      getAllProducts(`/products/getProducts/?limit=1&sold=false&skip=0`);
     }
-  }, [user]);
+  }, []);
 
   return (
     <>
@@ -80,21 +66,29 @@ const Home = () => {
         <Grid container columns = {12} rowGap = {3} spacing = {2}>
             {
               products.productsCollection.length > 0 ?
-                products.productsCollection.map((x, i) => {
+                products.productsCollection.map((x: any, i) => {
+
                   return (
+                    x.seller !== user.userId ? 
                     <Grid key = {i} item xs = {12} sm = {4} md = {3}>
                       <NavLink to={`/product/${x.productId}`} style = {{textDecoration: "none", color: "black"}}>
                         <Product imgSrc={x.images.length > 0 ? x.images[0]: null} category={x.category} price={x.price} title={x.title} state={x.state} />
                       </NavLink>
-                    </Grid>
+                    </Grid> :
+                    null
                   )
                 })
               :
                 null
             }
         </Grid>
-        <Button ref = {loadRef} style = {{backgroundColor: "red", color: "white"}} onClick = {handleLoadMore}>
-          load more
+        <p style={{color: "red", display: visible ? "block" : "none"}}>No more Products</p>
+        <Button ref = {loadRef} disabled = {loading} style = {{border: "1px solid red", color: "blue"}} onClick = {handleLoadMore}>
+          {
+            loading ? 
+            <CircularProgress /> :
+            `load more`
+          }
         </Button>
       </Stack>
     </>
