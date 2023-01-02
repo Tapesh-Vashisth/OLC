@@ -60,7 +60,7 @@ const Home = () => {
   return (
     <>
       <Stack direction = "row" justifyContent="right" padding={1}>
-        <Filter getProducts = {getAllProducts} />
+        <Filter getProducts = {getAllProducts} loadVisibility = {setVisible} />
       </Stack>
       <Stack direction = "column" style = {{padding: "20px"}} spacing = {3} alignItems = "center">
         <Grid container columns = {12} rowGap = {3} spacing = {2}>

@@ -21,6 +21,7 @@ const style = {
 
 interface props{
     getProducts: (endpoint: string) => void
+    loadVisibility: (state: boolean) => void
 }
 
 export default function BasicModal(props: props) {
@@ -43,26 +44,24 @@ export default function BasicModal(props: props) {
         if (filter.category !== "load"){
             setCategory(filter.category);
         }
+
     }, []);
     
     const handleChangeState = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setState(e.target.value);
     }
-
+    
     const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setCategory(e.target.value);
     }
-
+    
     const applyHandler = () => {
+        props.loadVisibility(false);
         dispatch(productsActions.setFilter({state, category, price: "all"}));
-        if (user.userId){
-            props.getProducts(`/products/getProducts/?limit=8&skip=0&state=${state}&category=${category}&sold=false&notUserId=${user.userId}`);
-        } else{
-            props.getProducts(`/products/getProducts/?limit=8&skip=0&state=${state}&category=${category}&sold=false`);
-        }
+        props.getProducts(`/products/getProducts/?limit=8&skip=0&state=${state}&category=${category}&sold=false`);
         setOpen(false);
     }
-
+    
     return (
         <div>
         <TuneIcon onClick={handleOpen} /> 
