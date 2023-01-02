@@ -35,10 +35,11 @@ const SearchBar = () => {
     const handleSearch = () => {
         if (title !== ""){
             setLoading(true);
+            dispatch(productsActions.setFilter({state: "none", category: "none"}))
             if (user.userId) {
-                getAllProducts(`/products/getProducts/?limit=25&title=${title}&notUserId=${user.userId}&sold=false`);
+                getAllProducts(`/products/getProducts/?title=${title}&notUserId=${user.userId}&sold=false`);
             }else { 
-                getAllProducts(`/products/getProducts/?limit=25&title=${title}&sold=false`);
+                getAllProducts(`/products/getProducts/?title=${title}&sold=false`);
             }
             navigate("/");
         }

@@ -37,11 +37,11 @@ export default function BasicModal(props: props) {
     };
 
     useEffect(() => {
-        if (filter.state !== "load"){
+        if (filter.state !== "load" && filter.state !== "search"){
             setState(filter.state);
         }
 
-        if (filter.category !== "load"){
+        if (filter.category !== "load" && filter.state !== "search"){
             setCategory(filter.category);
         }
 
