@@ -10,7 +10,7 @@ const store = configureStore({
         auth: authReducer,
         product: productsReducer
     },
-    middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck: false}).concat([apiSlice.middleware, logger]),
+    middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck: false}).concat([apiSlice.middleware]),
     devTools: true
 })
 
