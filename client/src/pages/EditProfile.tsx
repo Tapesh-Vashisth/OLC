@@ -90,7 +90,7 @@ const EditProfile = () => {
 
   return (
     <Grid container columns = {12} spacing = {3} padding = {3}>
-      <Grid item xs = {12} sm = {3}>
+      <Grid item xs = {12}  md = {3} sm = {4}>
         <Stack direction = "column" spacing = {2} alignItems = "center">
           {
             user.profileImage ? 
@@ -98,17 +98,17 @@ const EditProfile = () => {
             :
             <Stack className="proImage" style={{background: "grey"}} justifyContent = "center" alignItems = "center">No Image</Stack>
           }
-          <form onSubmit={handleProImageSubmit}>
+          <form onSubmit={handleProImageSubmit} style = {{width: "100%"}}>
             <Stack direction = "column" spacing = {2}>
               <input type="file" onChange={handleFile} required />
-              <Button type = "submit" ref = {profileRef} style = {{background: "lightGreen"}}>Update</Button>
+              <Button type = "submit" ref = {profileRef} style = {{background: "lightGreen", width: "100%"}}>Update</Button>
             </Stack>
           </form>
           <NavLink to = "/viewProfile" style = {{textDecoration: "none", textAlign: "center"}}><Button sx = {{background: "pink"}}>View profile</Button></NavLink>
         </Stack>
       </Grid>
 
-      <Grid item xs = {12} sm = {9} sx = {{textAlign: {xs: "center", sm: "left"}}}>
+      <Grid item xs = {12}  md = {9} sm = {8} sx = {{textAlign: {xs: "center", sm: "left"}}}>
         <h2>Edit Profile</h2>
         <form onSubmit={handleSubmit}>
           <Stack direction = "column" sx = {{border: "2px solid black"}} padding = {2}>

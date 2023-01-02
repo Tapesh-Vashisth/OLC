@@ -46,9 +46,9 @@ export default function BasicModal(props: props) {
     const applyHandler = () => {
         dispatch(productsActions.setFilter({state, category, price: "all"}));
         if (user.userId){
-            props.getProducts(`/products/getProducts/?limit=25&skip=0&state=${state}&category=${category}&sold=false&notUserId=${user.userId}`);
+            props.getProducts(`/products/getProducts/?limit=8&skip=0&state=${state}&category=${category}&sold=false&notUserId=${user.userId}`);
         } else{
-            props.getProducts(`/products/getProducts/?limit=25&skip=0&state=${state}&category=${category}&sold=false`);
+            props.getProducts(`/products/getProducts/?limit=8&skip=0&state=${state}&category=${category}&sold=false`);
         }
         setOpen(false);
     }

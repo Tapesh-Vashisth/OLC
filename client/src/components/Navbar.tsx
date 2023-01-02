@@ -113,10 +113,8 @@ export default function Navbar(props: Props) {
 
 					<Box sx={{ display: { xs: 'none', sm: 'block' }}}>
 						{navItems.map((item, i) => (
-							<NavLink to={item.to} key={i} style={{ textDecoration: "none" }}>
-								<Button sx={{ color: 'black', fontWeight: "bold" }}>
-									{item.name}
-								</Button>
+							<NavLink to={item.to} key={i} className = "btn" style={{ textDecoration: "none",  color: 'black', fontWeight: "bold", padding: "8px"}}>
+								{item.name}
 							</NavLink>
 						))}
 

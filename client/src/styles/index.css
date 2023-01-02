@@ -66,6 +66,10 @@ body {
     scale: 0.9;
 }
 
+.btn:hover {
+    scale: 0.8
+}
+
 .carousel__dot {
     width: 20px;
     height: 10px;

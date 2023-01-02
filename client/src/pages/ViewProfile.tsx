@@ -28,7 +28,7 @@ const ViewProfile = () => {
 
   return (
     <Grid container columns = {12} spacing = {3} padding = {3}>
-      <Grid item xs = {12} sm = {3}>
+      <Grid item xs = {12} sm = {4} md = {3}>
         <Stack direction = "column" spacing = {2} alignItems = "center" >
           {
             user.profileImage ? 
@@ -40,7 +40,7 @@ const ViewProfile = () => {
         </Stack>
       </Grid>
 
-      <Grid item xs = {12} sm = {9}>
+      <Grid item xs = {12} md = {9} sm = {8}>
         <Stack direction = "column">
           <section>
             <Stack direction = "column" sx = {{textAlign: {xs: "center", sm: "left"}}}>
